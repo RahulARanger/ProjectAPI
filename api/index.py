@@ -4,7 +4,8 @@ import uvicorn
 from fastapi.requests import Request
 from api import __version__
 from fastapi.middleware.cors import CORSMiddleware
-from api.Parts import application_router
+# from api.Parts import application_router
+import pkg_resources
 
 app = FastAPI(
     title="Project-API",
@@ -30,12 +31,12 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.include_router(application_router)
+# app.include_router(application_router)
 
 
 @app.route("/")
 def greet(_: Request) -> PlainTextResponse:
-    return PlainTextResponse(content="Hello, There", status_code=200)
+    return PlainTextResponse(content=f"Hello, There: {str([d for d in pkg_resources.working_set])}", status_code=200)
 
 
 @app.exception_handler(404)
