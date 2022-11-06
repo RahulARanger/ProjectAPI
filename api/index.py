@@ -3,6 +3,8 @@ from fastapi.responses import PlainTextResponse
 import uvicorn
 from fastapi.requests import Request
 from api import __version__
+from fastapi.middleware.cors import CORSMiddleware
+from api.Parts import application_router
 
 app = FastAPI(
     title="Project-API",
@@ -13,6 +15,22 @@ app = FastAPI(
         "email": "saihanumarahul66@gmail.com"
     }
 )
+
+origins = [
+    "https://rahularanger-fe-git-master-rahularanger.vercel.app/",
+    "https://rahularanger.vercel.app/",
+    "https://rahularanger-fe-rahularanger.vercel.app/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+app.include_router(application_router)
 
 
 @app.route("/")
@@ -26,5 +44,5 @@ async def explain_routes(_, __):
         content="Please refer to other routes, as this one was not implemented yet", status_code=404)
 
 
-config = uvicorn.Config("index:server", port=6966)
+config = uvicorn.Config("api.index:app", port=6966)
 server = uvicorn.Server(config)
