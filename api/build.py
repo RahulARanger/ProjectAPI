@@ -5,10 +5,13 @@ from starlette.middleware.cors import CORSMiddleware
 
 def get_cors():
     origins = [
-        "http://127.0.0.1:6969"
+        "https://rahularanger.vercel.app/",
+        "https://rahularanger-fe-rahularanger.vercel.app/",
+        "https://rahularanger-fe-git-master-rahularanger.vercel.app/"
     ]
     return Middleware(
-        CORSMiddleware, allow_origins=origins
+        CORSMiddleware, allow_origins=origins,
+        allow_methods=["*"], allow_headers=["*"], allow_credentials=True
     )
 
 
