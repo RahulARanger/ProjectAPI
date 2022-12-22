@@ -1,4 +1,4 @@
 .idea
 venv
 package_size_check.py
-check.py
+run_index.py
